@@ -142,10 +142,10 @@ Formspree is used because it gives the portfolio a working contact form on a fre
 3. In `.env.local`, set:
 
 ```bash
-NEXT_PUBLIC_FORMSPREE_ENDPOINT=YOUR_FORMSPREE_ENDPOINT
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/mdenpklk
 ```
 
-4. Replace `YOUR_FORMSPREE_ENDPOINT` with the real Formspree endpoint.
+4. Replace the value if you create a different Formspree form later.
 5. In Vercel, add the same environment variable in Project Settings → Environment Variables.
 6. Redeploy the Vercel site.
 7. Submit a real test message from the deployed Contact page and confirm it reaches the configured inbox.

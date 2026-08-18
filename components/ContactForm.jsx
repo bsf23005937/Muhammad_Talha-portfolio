@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'YOUR_FORMSPREE_ENDPOINT';
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mdenpklk';
 const SUCCESS_MESSAGE = 'Message sent successfully!';
 const ERROR_MESSAGE = 'Something went wrong. Please try again.';
 
