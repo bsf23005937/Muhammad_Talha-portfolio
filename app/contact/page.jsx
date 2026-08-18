@@ -1,5 +1,6 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import ContactForm from '../../components/ContactForm';
 
 export const metadata = {
   title: 'Contact - Muhammad Talha Portfolio',
@@ -15,8 +16,8 @@ const contactCards = [
   },
   {
     title: 'Contact form destination',
-    value: 'Still need to gather',
-    note: 'Connect the form to email, a form provider, or another chosen destination.',
+    value: 'Formspree inbox',
+    note: 'Set the Formspree endpoint in Vercel so messages reach your configured inbox.',
     icon: 'form',
   },
   {
@@ -26,8 +27,6 @@ const contactCards = [
     icon: 'briefcase',
   },
 ];
-
-const projectTypes = ['Clinic software', 'POS / supply workflow', 'CMS dashboard', 'Inventory or stock system', 'Other business software'];
 
 const nextSteps = [
   {
@@ -88,7 +87,7 @@ export default function ContactPage() {
               Start with the workflow, then gather the right contact details.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate-600 md:text-xl">
-              The portfolio’s single primary action is “Start a project.” The final personal email/form destination is still missing, so this page keeps that requirement visible instead of inventing one.
+              The portfolio’s single primary action is “Start a project.” This form sends visitor messages through Formspree after the endpoint is configured.
             </p>
           </div>
         </div>
@@ -104,7 +103,7 @@ export default function ContactPage() {
                   A focused intake for business software projects.
                 </h2>
                 <p className="mt-5 text-lg leading-relaxed text-slate-600">
-                  Use this page as the live structure for contact. Before launch, replace the placeholder with the real email, form provider, or preferred direct link.
+                  Use this form for name, email, and message submissions. It keeps the existing page design and adds only one dynamic feature.
                 </p>
               </div>
 
@@ -127,46 +126,7 @@ export default function ContactPage() {
             </div>
 
             <div className="rounded-[2rem] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-2xl shadow-slate-200/60 md:p-8">
-              <form className="space-y-5">
-                <div className="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="name" className="mb-2 block text-sm font-bold text-slate-700">Your Name</label>
-                    <input id="name" type="text" placeholder="Enter your name" className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100" />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="mb-2 block text-sm font-bold text-slate-700">Email Address</label>
-                    <input id="email" type="email" placeholder="Enter your email" className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100" />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="project-type" className="mb-2 block text-sm font-bold text-slate-700">Project Type</label>
-                    <select id="project-type" className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100">
-                      <option>Select project type</option>
-                      {projectTypes.map((type) => (
-                        <option key={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="proof" className="mb-2 block text-sm font-bold text-slate-700">Proof available?</label>
-                    <input id="proof" type="text" placeholder="Screenshots, demo, repo, or still missing" className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100" />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="mb-2 block text-sm font-bold text-slate-700">Project Details</label>
-                  <textarea id="message" rows={6} placeholder="Tell me what workflow you want to build or improve..." className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100"></textarea>
-                </div>
-
-                <button type="button" className="w-full rounded-2xl bg-[#A47DFF] px-8 py-4 font-bold text-white transition-all hover:scale-[1.01] hover:bg-[#A47DFF] hover:shadow-xl active:scale-[0.99]">
-                  Start a project
-                </button>
-                <p className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-3 text-center text-sm font-bold text-slate-500">
-                  Form destination: Still need to gather.
-                </p>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>

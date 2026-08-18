@@ -109,6 +109,47 @@ BLOG_ADMIN_PATH=/secret-blog-studio
 
 then open [http://localhost:3000/secret-blog-studio](http://localhost:3000/secret-blog-studio). When `BLOG_ADMIN_PATH` is different from `/private-blog-studio`, the internal `/private-blog-studio` route returns 404.
 
+## Dynamic Contact Form Feature
+
+This portfolio has exactly one public dynamic feature: the Contact page form.
+
+### What is a backend?
+
+A backend is the server-side part of a website. It receives data, processes it, stores it, or sends it somewhere else. In this portfolio, I am not building my own backend for the contact form yet.
+
+### What the contact form does
+
+The Contact page lets a visitor enter:
+
+- Full Name
+- Email Address
+- Message
+
+When the visitor clicks **Send Message**, the form validates the fields, sends the submission to Formspree, and then Formspree forwards it to the configured inbox.
+
+### Contact form data flow
+
+Visitor → Portfolio Contact Form → Formspree → Configured email/inbox → I receive the message
+
+### Why Formspree is used
+
+Formspree is used because it gives the portfolio a working contact form on a free tier without creating a custom backend, database, or private server credentials. The Formspree endpoint is public and safe to use in frontend code. No secret API key is exposed.
+
+### Configure the Formspree endpoint
+
+1. Create a free Formspree form.
+2. Copy the public form endpoint. It usually looks like `https://formspree.io/f/yourFormId`.
+3. In `.env.local`, set:
+
+```bash
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=YOUR_FORMSPREE_ENDPOINT
+```
+
+4. Replace `YOUR_FORMSPREE_ENDPOINT` with the real Formspree endpoint.
+5. In Vercel, add the same environment variable in Project Settings → Environment Variables.
+6. Redeploy the Vercel site.
+7. Submit a real test message from the deployed Contact page and confirm it reaches the configured inbox.
+
 ## Using The Private Blog Studio
 
 1. Visit the hidden admin path and log in with the plain password you used to generate `BLOG_ADMIN_PASSWORD_HASH`.
