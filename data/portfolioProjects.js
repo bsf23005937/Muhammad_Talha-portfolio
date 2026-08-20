@@ -5,7 +5,7 @@ export const identityKit = {
   positioning: 'I build the software small businesses run their operations on — solo, start to finish.',
   primaryCta: 'Start a project',
   primaryCtaHref: '/contact',
-  contactMethod: 'Still need to gather',
+  contactMethod: 'Formspree contact form',
   colors: {
     ink: '#111827',
     primary: '#A47DFF',

@@ -48,7 +48,7 @@ export default function Footer() {
                 View case studies
               </Link>
               <p className="text-center text-xs font-bold leading-relaxed text-slate-500">
-                Contact destination: Still need to gather.
+                Contact destination: Formspree contact form.
               </p>
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function Footer() {
               I build the software small businesses run their operations on — solo, start to finish.
             </p>
             <p className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-3 text-sm font-bold text-slate-600">
-              Personal contact method: Still need to gather.
+              Personal contact method: Formspree contact form.
             </p>
           </div>
 

@@ -1,6 +1,5 @@
-'use client';
 import Link from 'next/link';
-import Image from 'next/image';
+import SafeImage from './SafeImage';
 
 export default function HeroSection() {
   return (
@@ -62,11 +61,12 @@ export default function HeroSection() {
           <div className="relative flex animate-slideInRight justify-center">
             <div className="absolute -inset-4 rotate-3 rounded-[3rem] bg-white shadow-xl shadow-purple-100/60"></div>
             <div className="relative w-full max-w-[460px] overflow-hidden rounded-[2.25rem] border-8 border-white bg-white shadow-2xl shadow-purple-100/70">
-              <Image 
+              <SafeImage 
                 src="/team-talha.png" 
                 alt="Muhammad Talha professional profile photo" 
                 width={768}
                 height={960}
+                fallbackLabel="Profile photo asset is missing, so the layout keeps a branded fallback instead of a broken image."
                 className="h-[460px] w-full object-cover object-top sm:h-[560px]"
                 priority
               />

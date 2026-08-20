@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import SafeImage from './SafeImage';
 
 export default function BlogSection({ posts = [] }) {
   const featuredPost = posts.find((post) => post.featured) || posts[0];
@@ -28,10 +28,12 @@ export default function BlogSection({ posts = [] }) {
         <div className="mb-16 md:mb-24">
           <Link href={`/blog/${featuredPost.slug}`} className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 bg-gradient-to-br from-[#F8F9FF] to-[#E6E9FF] rounded-[2.5rem] p-6 md:p-10 items-center group cursor-pointer hover:shadow-2xl transition-all duration-500 border border-white/50 backdrop-blur-sm block">
             <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] shadow-lg">
-              <Image 
+              <SafeImage 
                 src={featuredPost.image}
                 alt={featuredPost.title}
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                fallbackLabel={`${featuredPost.title} image asset is missing from this build.`}
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
@@ -77,10 +79,12 @@ export default function BlogSection({ posts = [] }) {
           {gridPosts.map((blog) => (
             <Link key={blog.slug} href={`/blog/${blog.slug}`} className="group cursor-pointer block">
               <div className="relative aspect-[1.4/1] overflow-hidden rounded-[2rem] mb-6 shadow-sm border border-gray-100">
-                <Image 
+                <SafeImage 
                   src={blog.image}
                   alt={blog.title}
                   fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  fallbackLabel={`${blog.title} image asset is missing from this build.`}
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>

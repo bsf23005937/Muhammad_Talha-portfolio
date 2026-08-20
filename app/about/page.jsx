@@ -1,12 +1,20 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SafeImage from '../../components/SafeImage';
 import { caseStudyProjects, identityKit, skillsStack } from '../../data/portfolioProjects';
 
 export const metadata = {
   title: 'About Muhammad Talha - Portfolio',
   description: 'About Muhammad Talha, a developer building business software for clinics, shops, supply workflows, and dashboards.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'About Muhammad Talha - Portfolio',
+    description: 'About Muhammad Talha, a developer building business software for clinics, shops, supply workflows, and dashboards.',
+    url: '/about',
+  },
 };
 
 const buildAreas = [
@@ -46,7 +54,7 @@ export default function AboutPage() {
               </h1>
 
               <p className="max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl">
-                {identityKit.positioning} This Week 4 portfolio shell keeps the emphasis on confirmed projects, real screenshots, and the missing evidence that still needs to be gathered before the final case studies are complete.
+                {identityKit.positioning} This portfolio keeps the emphasis on confirmed projects, real screenshots, and the missing evidence that still needs to be gathered before the final case studies are complete.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -62,11 +70,12 @@ export default function AboutPage() {
             <div className="relative">
               <div className="absolute -inset-5 rotate-3 rounded-[3rem] bg-[#A47DFF]/10"></div>
               <div className="relative overflow-hidden rounded-[2.5rem] border-8 border-white shadow-2xl">
-                <Image
+                <SafeImage
                   src="/team-talha.png"
                   alt="Muhammad Talha professional profile photo"
                   width={700}
                   height={780}
+                  fallbackLabel="Profile photo asset is missing, so this page renders a branded fallback instead of a broken image."
                   className="h-[520px] w-full object-cover object-top md:h-[620px]"
                   priority
                 />

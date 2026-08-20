@@ -6,6 +6,14 @@ import { listPublishedBlogPosts } from '../../lib/blogStore';
 export const metadata = {
   title: 'Blog - Muhammad Talha Portfolio',
   description: 'Latest insights and stories about AI, web development, automation, and SEO from Muhammad Talha Portfolio.',
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Blog - Muhammad Talha Portfolio',
+    description: 'Latest insights and stories about AI, web development, automation, and SEO from Muhammad Talha Portfolio.',
+    url: '/blog',
+  },
 };
 
 export const dynamic = 'force-dynamic';

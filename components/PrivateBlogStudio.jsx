@@ -457,7 +457,7 @@ export default function PrivateBlogStudio({
                 <textarea id="intro" value={form.intro} onChange={(event) => updateField('intro', event.target.value)} className={`${inputClass} min-h-28`} />
               </div>
               <div>
-                <label className={labelClass} htmlFor="sections">Sections, one per line as "Heading | Body"</label>
+                <label className={labelClass} htmlFor="sections">Sections, one per line as &quot;Heading | Body&quot;</label>
                 <textarea id="sections" value={form.sectionsText} onChange={(event) => updateField('sectionsText', event.target.value)} className={`${inputClass} min-h-44 font-mono text-xs`} />
               </div>
               <div>

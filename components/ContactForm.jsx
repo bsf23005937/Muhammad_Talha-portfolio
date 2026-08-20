@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { CONTACT_LIMITS, normalizeContactFormValues, validateContactForm } from '../lib/contactValidation.mjs';
 
 const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/mdenpklk';
 const SUCCESS_MESSAGE = 'Message sent successfully!';
@@ -12,33 +13,13 @@ const initialValues = {
   message: '',
 };
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function validateForm(values) {
-  const errors = {};
-
-  if (!values.name.trim()) {
-    errors.name = 'Full name is required.';
-  }
-
-  if (!values.email.trim()) {
-    errors.email = 'Email address is required.';
-  } else if (!emailPattern.test(values.email.trim())) {
-    errors.email = 'Please enter a valid email address.';
-  }
-
-  if (!values.message.trim()) {
-    errors.message = 'Message is required.';
-  }
-
-  return errors;
-}
-
 export default function ContactForm() {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const submitLockRef = useRef(false);
+  const honeypotRef = useRef(null);
 
   const isSubmitting = status === 'submitting';
 
@@ -61,10 +42,13 @@ export default function ContactForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const nextErrors = validateForm(values);
+    if (submitLockRef.current) return;
+
+    const validation = validateContactForm(values);
+    const nextErrors = validation.errors;
     setErrors(nextErrors);
 
-    if (Object.keys(nextErrors).length > 0) {
+    if (!validation.valid) {
       setStatus('error');
       setStatusMessage('Please fix the highlighted fields.');
       return;
@@ -76,10 +60,12 @@ export default function ContactForm() {
       return;
     }
 
+    submitLockRef.current = true;
     setStatus('submitting');
     setStatusMessage('');
 
     try {
+      const normalizedValues = normalizeContactFormValues(values);
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -87,9 +73,11 @@ export default function ContactForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: values.name.trim(),
-          email: values.email.trim(),
-          message: values.message.trim(),
+          name: normalizedValues.name,
+          email: normalizedValues.email,
+          message: normalizedValues.message,
+          _subject: 'New portfolio contact form message',
+          _gotcha: honeypotRef.current?.value || '',
         }),
       });
 
@@ -104,11 +92,18 @@ export default function ContactForm() {
     } catch (error) {
       setStatus('error');
       setStatusMessage(ERROR_MESSAGE);
+    } finally {
+      submitLockRef.current = false;
     }
   };
 
   return (
     <form className="space-y-5" onSubmit={handleSubmit} noValidate>
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="company">Company website</label>
+        <input ref={honeypotRef} id="company" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div>
         <label htmlFor="name" className="mb-2 block text-sm font-bold text-slate-700">
           Full Name
@@ -122,10 +117,15 @@ export default function ContactForm() {
           placeholder="Enter your full name"
           autoComplete="name"
           required
+          minLength={CONTACT_LIMITS.nameMin}
+          maxLength={CONTACT_LIMITS.nameMax}
           aria-invalid={Boolean(errors.name)}
-          aria-describedby={errors.name ? 'name-error' : undefined}
+          aria-describedby={errors.name ? 'name-hint name-error' : 'name-hint'}
           className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100"
         />
+        <p id="name-hint" className="mt-2 text-xs font-semibold text-slate-500">
+          Use 2–100 characters.
+        </p>
         {errors.name && (
           <p id="name-error" className="mt-2 text-sm font-semibold text-red-600">
             {errors.name}
@@ -146,10 +146,15 @@ export default function ContactForm() {
           placeholder="Enter your email"
           autoComplete="email"
           required
+          maxLength={CONTACT_LIMITS.emailMax}
+          inputMode="email"
           aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? 'email-error' : undefined}
+          aria-describedby={errors.email ? 'email-hint email-error' : 'email-hint'}
           className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100"
         />
+        <p id="email-hint" className="mt-2 text-xs font-semibold text-slate-500">
+          Use a valid address such as name@example.com.
+        </p>
         {errors.email && (
           <p id="email-error" className="mt-2 text-sm font-semibold text-red-600">
             {errors.email}
@@ -169,10 +174,15 @@ export default function ContactForm() {
           onChange={handleChange}
           placeholder="Tell me what you want to build..."
           required
+          minLength={CONTACT_LIMITS.messageMin}
+          maxLength={CONTACT_LIMITS.messageMax}
           aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? 'message-error' : undefined}
+          aria-describedby={errors.message ? 'message-hint message-error' : 'message-hint'}
           className="w-full resize-none rounded-2xl border border-slate-200 bg-white px-5 py-4 outline-none transition focus:border-[#A47DFF] focus:ring-4 focus:ring-slate-100"
         />
+        <p id="message-hint" className="mt-2 text-xs font-semibold text-slate-500">
+          Use 10–2,000 characters. HTML-like text is sent as plain text.
+        </p>
         {errors.message && (
           <p id="message-error" className="mt-2 text-sm font-semibold text-red-600">
             {errors.message}

@@ -1,8 +1,8 @@
-﻿import Image from 'next/image';
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import Footer from '../components/Footer';
+import SafeImage from '../components/SafeImage';
 import { caseStudyProjects, identityKit, skillsStack, supportingWebsiteProjects } from '../data/portfolioProjects';
 
 const skillGroups = [
@@ -52,11 +52,12 @@ export default function Home() {
 
           <article className="grid overflow-hidden rounded-[2.5rem] border border-purple-100 bg-white shadow-2xl shadow-purple-100/70 lg:grid-cols-[1fr_0.9fr]">
             <div className="relative min-h-[320px] overflow-hidden bg-[#F8F9FF]">
-              <Image
+              <SafeImage
                 src={leadProject.image}
                 alt={`${leadProject.title} screenshot`}
                 fill
                 sizes="(min-width: 1024px) 55vw, 100vw"
+                fallbackLabel={`${leadProject.title} screenshot asset is missing from this build.`}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
@@ -98,11 +99,12 @@ export default function Home() {
             {selectedProjects.map((project) => (
               <Link key={project.slug} href={`/portfolio/${project.slug}`} className="group overflow-hidden rounded-[2rem] border border-purple-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-100/70">
                 <div className="relative aspect-[16/10] bg-[#F8F9FF]">
-                  <Image
+                  <SafeImage
                     src={project.image}
                     alt={`${project.title} screenshot`}
                     fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
+                    fallbackLabel={`${project.title} screenshot asset is missing from this build.`}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
@@ -138,11 +140,12 @@ export default function Home() {
             {screenshotProjects.map((project) => (
               <Link key={project.slug} href={`/portfolio/${project.slug}`} className="group overflow-hidden rounded-[2rem] border border-purple-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-100/70">
                 <div className="relative aspect-[4/3] bg-[#F8F9FF]">
-                  <Image
+                  <SafeImage
                     src={project.image}
                     alt={`${project.title} screenshot`}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    fallbackLabel={`${project.title} screenshot asset is missing from this build.`}
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-[#A47DFF] shadow-sm">

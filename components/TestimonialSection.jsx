@@ -88,7 +88,7 @@ export default function TestimonialSection() {
             </span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Don't just take our word for it - hear from businesses we've helped transform
+            Don&apos;t just take our word for it - hear from businesses we&apos;ve helped transform
           </p>
         </div>
 

@@ -1,12 +1,20 @@
-﻿import Image from 'next/image';
-import Link from 'next/link';
+﻿import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import SafeImage from '../../components/SafeImage';
 import { caseStudyProjects, moreWorkProjects, portfolioProjects, stillNeedToGather } from '../../data/portfolioProjects';
 
 export const metadata = {
   title: 'Portfolio - Muhammad Talha',
   description: 'Selected Muhammad Talha portfolio projects with real screenshots, case studies, and proof still to gather.',
+  alternates: {
+    canonical: '/portfolio',
+  },
+  openGraph: {
+    title: 'Portfolio - Muhammad Talha',
+    description: 'Selected Muhammad Talha portfolio projects with real screenshots, case studies, and proof still to gather.',
+    url: '/portfolio',
+  },
 };
 
 const stats = [
@@ -75,11 +83,12 @@ export default function PortfolioPage() {
               >
                 <article>
                   <div className={`relative overflow-hidden bg-[#F8F9FF] ${index === 0 ? 'aspect-[16/9]' : 'aspect-[4/3]'}`}>
-                    <Image
+                    <SafeImage
                       src={project.image}
                       alt={`${project.title} screenshot`}
                       fill
                       sizes={index === 0 ? '(min-width: 1280px) 66vw, (min-width: 768px) 100vw, 100vw' : '(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw'}
+                      fallbackLabel={`${project.title} screenshot asset is missing from this build.`}
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent opacity-75"></div>

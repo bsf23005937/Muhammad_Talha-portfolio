@@ -4,7 +4,15 @@ import ContactForm from '../../components/ContactForm';
 
 export const metadata = {
   title: 'Contact - Muhammad Talha Portfolio',
-  description: 'Start a project with Muhammad Talha. Contact method is currently marked as still need to gather for the Week 4 portfolio shell.',
+  description: 'Start a project conversation with Muhammad Talha through the portfolio contact form powered by Formspree.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact - Muhammad Talha Portfolio',
+    description: 'Start a project conversation with Muhammad Talha through the portfolio contact form powered by Formspree.',
+    url: '/contact',
+  },
 };
 
 const contactCards = [
@@ -17,7 +25,7 @@ const contactCards = [
   {
     title: 'Contact form destination',
     value: 'Formspree inbox',
-    note: 'Set the Formspree endpoint in Vercel so messages reach your configured inbox.',
+    note: 'Messages are sent through the configured Formspree endpoint.',
     icon: 'form',
   },
   {

@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
+import SafeImage from '../../../components/SafeImage';
 import { getProjectBySlug, getRelatedProjects, portfolioProjects } from '../../../data/portfolioProjects';
 
 export function generateStaticParams() {
@@ -17,12 +17,24 @@ export function generateMetadata({ params }) {
   if (!project) {
     return {
       title: 'Project Not Found - Muhammad Talha Portfolio',
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
   return {
     title: `${project.title} - Muhammad Talha Portfolio`,
     description: project.description,
+    alternates: {
+      canonical: `/portfolio/${project.slug}`,
+    },
+    openGraph: {
+      title: `${project.title} - Muhammad Talha Portfolio`,
+      description: project.description,
+      url: `/portfolio/${project.slug}`,
+    },
   };
 }
 
@@ -30,12 +42,13 @@ function EvidenceFrame({ project }) {
   if (project.image) {
     return (
       <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border-8 border-white bg-slate-50 shadow-2xl">
-        <Image
+        <SafeImage
           src={project.image}
           alt={`${project.title} real project screenshot`}
           fill
           priority
           sizes="(min-width: 1024px) 45vw, 100vw"
+          fallbackLabel={`${project.title} screenshot asset is missing from this build.`}
           className="object-cover"
         />
       </div>
@@ -216,7 +229,7 @@ export default function PortfolioDetailPage({ params }) {
               <div className="rounded-[2rem] bg-[#A47DFF] p-8 text-white md:p-10">
                 <h2 className="text-3xl font-bold md:text-4xl">Want something like this built?</h2>
                 <p className="mt-4 text-lg leading-relaxed text-white/75">
-                  The single portfolio action is to start a project. Contact details are still being gathered, so this button leads to the Contact page placeholder.
+                  The single portfolio action is to start a project. This button leads to the hardened Contact page and Formspree contact form.
                 </p>
                 <Link href="/contact" className="mt-7 inline-flex rounded-2xl bg-white px-7 py-4 font-bold text-[#A47DFF] transition-all hover:bg-slate-100">
                   Start a project

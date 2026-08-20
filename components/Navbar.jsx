@@ -39,7 +39,7 @@ export default function Navbar() {
 
             <div className="hidden lg:flex items-center gap-7">
               {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="relative text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-[#A47DFF]">
+                <Link key={link.href} href={link.href} className="group relative text-sm font-semibold text-gray-600 transition-colors duration-300 hover:text-[#A47DFF]">
                   {link.label}
                   <span className="absolute -bottom-2 left-0 h-0.5 w-0 rounded-full bg-[#A47DFF] transition-all duration-300 group-hover:w-full"></span>
                 </Link>
@@ -58,6 +58,7 @@ export default function Navbar() {
                 className="rounded-2xl border border-purple-100 p-2 text-gray-700 transition hover:border-[#A47DFF] hover:text-[#A47DFF] lg:hidden"
                 aria-label="Toggle navigation menu"
                 aria-expanded={isMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {isMenuOpen ? (
@@ -71,7 +72,7 @@ export default function Navbar() {
           </div>
 
           {isMenuOpen && (
-            <div className="border-t border-gray-100 py-4 lg:hidden">
+            <div id="mobile-navigation" className="border-t border-gray-100 py-4 lg:hidden">
               <div className="flex flex-col gap-2">
                 {navLinks.map((link) => (
                   <Link

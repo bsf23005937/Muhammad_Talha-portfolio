@@ -1,8 +1,8 @@
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import SafeImage from '../../../components/SafeImage';
 import { getPublishedBlogPostBySlug, listRelatedPublishedBlogPosts } from '../../../lib/blogStore';
 
 export const dynamic = 'force-dynamic';
@@ -13,6 +13,14 @@ export async function generateMetadata({ params }) {
   return {
     title: `${post.title} - Muhammad Talha Portfolio Blog`,
     description: post.seoDescription || post.description,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: `${post.title} - Muhammad Talha Portfolio Blog`,
+      description: post.seoDescription || post.description,
+      url: `/blog/${post.slug}`,
+    },
   };
 }
 
@@ -46,12 +54,13 @@ export default async function BlogPost({ params }) {
           </h1>
 
           <div className="relative mx-auto mb-8 aspect-[16/9] w-full overflow-hidden rounded-[1.75rem] bg-gray-100">
-            <Image
+            <SafeImage
               src={post.image}
               alt={post.title}
               fill
               priority
               sizes="(min-width: 1024px) 960px, 100vw"
+              fallbackLabel={`${post.title} image asset is missing from this build.`}
               className="object-cover"
             />
           </div>
@@ -142,11 +151,12 @@ export default async function BlogPost({ params }) {
                   className="group block overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
-                    <Image
+                    <SafeImage
                       src={relatedPost.image}
                       alt={relatedPost.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      fallbackLabel={`${relatedPost.title} image asset is missing from this build.`}
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>

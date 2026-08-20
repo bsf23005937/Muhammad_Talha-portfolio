@@ -5,6 +5,14 @@ import Footer from '../../components/Footer';
 export const metadata = {
   title: 'Services - Muhammad Talha Portfolio',
   description: 'Muhammad Talha Portfolio provides website development, SEO, ecommerce, Python automation, UI/UX, video editing, graphic design, app development, custom software, POS, ERP, CMS, and shop management systems.',
+  alternates: {
+    canonical: '/services',
+  },
+  openGraph: {
+    title: 'Services - Muhammad Talha Portfolio',
+    description: 'Muhammad Talha Portfolio provides website development, SEO, ecommerce, Python automation, UI/UX, video editing, graphic design, app development, custom software, POS, ERP, CMS, and shop management systems.',
+    url: '/services',
+  },
 };
 
 const services = [
